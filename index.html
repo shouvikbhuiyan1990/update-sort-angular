@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Table</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+	<div id="play" ng-app="tableApp" ng-controller="tappCtrl">
+		<form class="row" ng-submit="updateRecord()">
+			<input type="text" ng-model="formData.name" placeHolder="Name" >
+			<input type="number" ng-model="formData.age" placeHolder="Age" >
+			<input type="text" ng-model="formData.address" placeHolder="Address" >
+			<button type="submit" >Submit</button>
+		</form>
+		<div class="table">
+			<div class="row-start">
+				<label>Sort By</label>
+				<select ng-model="filterSort">
+					<option value="name">Name</option>
+					<option value="age">Age</option>
+					<option value="address">Address</option>
+				</select>
+			</div>
+			<div class="row">
+				<h2>Name</h2>
+				<h2>Age</h2>
+				<h2>Address</h2>
+				<h2></h2>
+			</div>
+			<div class="row record-rows" ng-repeat="rec in newRec | orderBy: filterSort ">
+				<h4 ng-hide="rec.isEditable">{{rec.name}}</h4>
+				<input ng-show="rec.isEditable" ng-model="formData.upname" >
+				<h4 ng-hide="rec.isEditable">{{rec.age}}</h4>
+				<input ng-show="rec.isEditable" ng-model="formData.upage" >
+				<h4 ng-hide="rec.isEditable">{{rec.address}}</h4>
+				<input ng-show="rec.isEditable" ng-model="formData.upaddress" >
+				<div>
+					<a href="#" ng-click="edit(rec)"  ng-hide="rec.isEditable">Edit</a>
+					<a href="#" ng-click="update(rec)"  ng-show="rec.isEditable">Update</a>
+					<a href="#" ng-click="cancel(rec)">Cancel</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
